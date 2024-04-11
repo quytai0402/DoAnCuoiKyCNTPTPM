@@ -1,6 +1,5 @@
-# WeatherSense
+API OpenWeather OneCall 3.0 được sử dụng để hiển thị chi tiết thời tiết hiện tại và dự báo thời tiết yếu sắp tới.
 
-A web application using HTML, TailwindCSS and Javascript.
-
-The OpenWeather OneCall 1.0 API is used to show current weather details and forecast weather of upcoming weak.
-
+Được thực hiện bởi : 
+Trần Quý Tài - 2274802010777
+Nguyễn Hoàng Trúc Vy - 2274802011034
