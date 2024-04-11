@@ -1,4 +1,3 @@
-// The following line of code defines a constant variable called currentDetails which stores the URL of the OpenWeatherMap API with specific latitude, longitude, and API key.
 const currentDetails = "https://api.openweathermap.org/data/3.0/onecall?lat=35&lon=139&appid={API key}";
 
 const currTime = document.querySelector('#time');
