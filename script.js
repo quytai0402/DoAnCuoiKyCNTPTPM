@@ -1,5 +1,7 @@
+// Dòng code dưới định nghĩa một biến hằng số currentDetails lưu trữ URL của OpenWeatherMap API với vĩ độ, kinh độ và khóa API cụ thể.
 const currentDetails = "https://api.openweathermap.org/data/3.0/onecall?lat=35&lon=139&appid={API key}";
 
+// Khai báo các biến để lưu trữ các phần tử HTML
 const currTime = document.querySelector('#time');
 const ampm = document.getElementById('#ampm');
 const searchBar = document.querySelector('#searchbar');
@@ -21,6 +23,7 @@ const forecast = document.getElementById("table");
 const aqi = document.getElementById("aqi");
 const quality = document.getElementById("quality");
 
+// Thêm sự kiện click cho nút chuyển giao diện tối/sáng
 darkBtn.addEventListener("click", () => {
   if (darkBtn.checked) {
     body.classList.remove("light");
@@ -29,23 +32,26 @@ darkBtn.addEventListener("click", () => {
   } else {
     body.classList.remove("dark");
     body.classList.add("light");
-    loc.classList.remove("dark-theme");
+    loc.classList.remove("dark-theme"); // Xóa class dark-theme
   }
 });
 
+// Khai báo biến limit và API key
 var limit = 5;
 var APIkey = 'd11089033f302effdd5c0af29c7bd6aa';
 
-navigator.geolocation.getCurrentPosition((position) => {
-  var lat = position.coords.latitude;
-  var lon = position.coords.longitude;
+// Lấy vị trí hiện tại của người dùng
+navigator.geolocation.getCurrentPosition((position) => { // Hàm này sẽ được gọi khi trình duyệt xác định được vị trí của người dùng
+  var lat = position.coords.latitude; // Lấy vĩ độ
+  var lon = position.coords.longitude; // Lấy kinh độ
   updateDetails(lat, lon);
 });
 
-async function getCoords(cityName) {
-  const limit = 5;
+// Hàm lấy tọa độ dựa trên tên thành phố
+async function getCoords(cityName) { 
+  const limit = 5; // Giới hạn số lượng thành phố trả về
   const pos = { latitude: 0, longitude: 0 };
-  const api_url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=${limit}&appid=${APIkey}`
+  const api_url = `http://api.openweathermap.org/geo/1.0/direct?q=${cityName}&limit=${limit}&appid=${APIkey}` // Tạo URL API
   await fetch(api_url).then(res => res.json()).then(data => {
     pos.latitude = data[0].lat;
     pos.longitude = data[0].lon;
@@ -54,6 +60,7 @@ async function getCoords(cityName) {
   return pos;
 }
 
+// Sự kiện khi người dùng nhấn phím Enter trong ô tìm kiếm
 document.addEventListener('keyup', (event) => {
   if (event.key === 'Enter') {
     var coords = getCoords(input_text.value);
@@ -65,6 +72,7 @@ document.addEventListener('keyup', (event) => {
   }
 });
 
+// Sự kiện khi người dùng nhấn nút tìm kiếm
 document.getElementById('button-addon2').addEventListener('click', () => {
   var coords = getCoords(input_text.value);
   getCoords(input_text.value).then((data) => {
@@ -74,6 +82,7 @@ document.getElementById('button-addon2').addEventListener('click', () => {
   });
 });
 
+// Hàm cập nhật thông tin thời tiết và nhiệt độ
 async function updateDetails(lat, lon) {
   const weatherAPI = `https://api.openweathermap.org/data/3.0/onecall?lat=${lat}&lon=${lon}&appid=${APIkey}`;
   const geoAPI = `http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=${limit}&appid=${APIkey}`;
